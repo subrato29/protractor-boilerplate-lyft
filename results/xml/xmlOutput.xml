@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites disabled="0" errors="0" failures="0" tests="2" time="8.976">
+ <testsuite name="Login page validation: " timestamp="2020-10-17T00:50:39" hostname="localhost" time="8.976" errors="0" tests="2" skipped="0" disabled="0" failures="0">
+  <testcase classname="Login page validation: " name="validation to login page test- " time="6.109" />
+  <testcase classname="Login page validation: " name="validation with unregistered mobile no- " time="2.862" />
+ </testsuite>
+</testsuites>
