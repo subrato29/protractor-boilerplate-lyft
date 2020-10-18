@@ -1,5 +1,7 @@
 'use strict';
 
+let utils = require("../..//lib/commonUtils.js");
+
 class LoginPage {
 
     get welcome_back_to_lyft () {
@@ -30,6 +32,36 @@ class LoginPage {
         });
     };
 
+    get next() {
+        return new Promise ((resolve, reject) => {
+            element(by.xpath('//button[text() = \'Next\']')).isPresent().then((present) => {
+                if (present) {
+                    resolve(element(by.xpath('//button[text() = \'Next\']')));
+                } else {
+                    browser.getCurrentUrl().then((url) => {
+                        reject('Error retrieving next checkbox. ' + url);
+                    });
+                }
+            });
+        });
+    };
+
+
+    get unable_to_contact() {
+        return new Promise ((resolve, reject) => {
+            utils.wait(2000);
+            element(by.xpath('//p[@class = \'text-book\']/span')).isPresent().then((present) => {
+                if (present) {
+                    resolve(element(by.xpath('//p[@class = \'text-book\']/span')));
+                } else {
+                    browser.getCurrentUrl().then((url) => {
+                        reject('Error retrieving unable_to_contact text. ' + url);
+                    });
+                }
+            });
+        });
+    };
+
 	verify_welcome_back_text() {
         let _this = this;
         let verify_welcome_back_text = _this.welcome_back_to_lyft;
@@ -50,6 +82,26 @@ class LoginPage {
         }).catch((err) => {
             return Promise.reject(err);
         });
+    }
+
+    click_next() {
+        let click_next = this.next;
+        return click_next.then((_click_next) => {
+            click_next = _click_next;
+            return click_next.click();
+        }).catch((err) => {
+            return Promise.reject(err);
+        })
+    }
+
+    verify_unable_to_contact() {
+        let verify_unable_to_contact = this.unable_to_contact;
+        return verify_unable_to_contact.then((_verify_unable_to_contact) => {
+            verify_unable_to_contact = _verify_unable_to_contact;
+            return verify_unable_to_contact.getText();
+        }).catch((err) => {
+            return Promise.reject(err);
+        })
     }
 
 };

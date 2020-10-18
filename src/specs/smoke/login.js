@@ -4,6 +4,7 @@
 let config = require('../../../config/urls.js');
 let loginPage = require('../../pages/login_page.js')
 let data = require("../../..//data/data.js");
+//let utils = require("../../..//lib/commonUtils.js");
 
 browser.ignoreSynchronization = true;
 
@@ -35,7 +36,16 @@ describe('Login page validation: ', function() {
     }).then(() => {
       return browser.driver.manage().window().maximize();
     }).then(() => {
-      return loginPage.set_login('88888888888');
+      return loginPage.set_login('888888888889999');
+    }).then(() => {
+      return loginPage.click_next();
+    }).then(() => {
+      return loginPage.verify_unable_to_contact();
+    }).then((text) => {
+      return expect(text).toContain('problem using this phone');
+      done();
+    }).catch((err) => {
+      return Promise.reject (err);
     });
   });
 
