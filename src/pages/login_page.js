@@ -46,7 +46,6 @@ class LoginPage {
         });
     };
 
-
     get unable_to_contact() {
         return new Promise ((resolve, reject) => {
             utils.wait(2000);
@@ -56,6 +55,50 @@ class LoginPage {
                 } else {
                     browser.getCurrentUrl().then((url) => {
                         reject('Error retrieving unable_to_contact text. ' + url);
+                    });
+                }
+            });
+        });
+    };
+
+    get find_your_account() {
+        return new Promise ((resolve, reject) => {
+            element(by.xpath('//a[text() = \'Find your account\']')).isPresent().then((present) => {
+                if (present) {
+                    resolve(element(by.xpath('//a[text() = \'Find your account\']')));
+                } else {
+                    browser.getCurrentUrl().then((url) => {
+                        reject('Error retrieving find_your_account link. ' + url);
+                    });
+                }
+            });
+        });
+    };
+
+    get email() {
+        return new Promise ((resolve, reject) => {
+            utils.isElementPresent('//input[@type = \'email\']');
+            element(by.xpath('//input[@type = \'email\']')).isPresent().then((present) => {
+                if (present) {
+                    resolve(element(by.xpath('//input[@type = \'email\']')));
+                } else {
+                    browser.getCurrentUrl().then((url) => {
+                        reject('Error retrieving email textbox. ' + url);
+                    });
+                }
+            });
+        });
+    };
+
+    get check_your_email() {
+        return new Promise ((resolve, reject) => {
+            utils.isElementPresent('//h1[text() = \'Check your email\']');
+            element(by.xpath('//h1[text() = \'Check your email\']')).isPresent().then((present) => {
+                if (present) {
+                    resolve(element(by.xpath('//h1[text() = \'Check your email\']')));
+                } else {
+                    browser.getCurrentUrl().then((url) => {
+                        reject('Error retrieving check_your_email text. ' + url);
                     });
                 }
             });
@@ -99,6 +142,36 @@ class LoginPage {
         return verify_unable_to_contact.then((_verify_unable_to_contact) => {
             verify_unable_to_contact = _verify_unable_to_contact;
             return verify_unable_to_contact.getText();
+        }).catch((err) => {
+            return Promise.reject(err);
+        })
+    }
+
+    click_find_your_account() {
+        let click_find_your_account = this.find_your_account;
+        return click_find_your_account.then((_promise) => {
+            click_find_your_account = _promise;
+            return click_find_your_account.click();
+        }).catch((err) => {
+            return Promise.reject(err);
+        })
+    }
+
+    set_email(email_ID) {
+        let set_email = this.email;
+        return set_email.then((_promise) => {
+            set_email = _promise;
+            return set_email.sendKeys(email_ID);
+        }).catch((err) => {
+            return Promise.reject(err);
+        })
+    }
+
+    verify_check_your_email() {
+        let verify_check_your_email = this.check_your_email;
+        return verify_check_your_email.then((_promise) => {
+            verify_check_your_email = _promise;
+            return verify_check_your_email.getText();
         }).catch((err) => {
             return Promise.reject(err);
         })

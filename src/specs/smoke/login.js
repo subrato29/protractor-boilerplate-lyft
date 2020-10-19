@@ -17,6 +17,7 @@ describe('Login page validation: ', function() {
     });
   });
 
+
   it('validation to login page test- ', function() {
     browser.driver.manage().deleteAllCookies().then(() => {
     }).then(() => {
@@ -29,6 +30,7 @@ describe('Login page validation: ', function() {
         return Promise.reject (err);
     });
   });
+
 
   it('validation with unregistered mobile no- ', function() {
     browser.driver.manage().deleteAllCookies().then(() => {
@@ -44,6 +46,27 @@ describe('Login page validation: ', function() {
     }).catch((err) => {
       return Promise.reject (err);
     });
+  });
+
+
+  it('find your account test- ', function() {
+    browser.driver.manage().deleteAllCookies().then(() => {
+    }).then(() => {
+      return browser.driver.manage().window().maximize();
+    }).then(() => {
+      return loginPage.click_find_your_account();
+    }).then(() => {
+      return loginPage.set_email('asdsada@email.com');
+    }).then(() => {
+      return loginPage.click_next();
+    }).then(() => {
+        return loginPage.verify_check_your_email();
+    }).then((text) => {
+        return expect(text).toBe('Check your email');
+        done();
+    }).catch((err) => {
+      return Promise.reject(err);
+    })
   });
 
 
