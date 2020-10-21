@@ -3,7 +3,7 @@
 
 let url = require('../../../config/urls.js');
 let loginPage = require('../../pages/login_page.js')
-let data = require("../../..//data/data.js");
+let data = require("../../../data/data.js");
 
 browser.ignoreSynchronization = true;
 
@@ -40,8 +40,6 @@ describe('Login page validation: ', function() {
       return loginPage.set_login('888888888889999');
     }).then(() => {
       return loginPage.click_next();
-    }).then(() => {
-      return loginPage.verify_unable_to_contact();
       done();
     }).catch((err) => {
       return Promise.reject (err);

@@ -8,6 +8,11 @@ module.exports = {
                 // 'src/specs/smoke/cities.js',
                 // 'src/specs/smoke/help.js'
             ]
+        },
+        regression: {
+            specs: [
+                'src/specs/regression/cities.js'
+            ]
         }
     }
 };

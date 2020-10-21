@@ -48,7 +48,7 @@ class LoginPage {
 
     get unable_to_contact() {
         return new Promise ((resolve, reject) => {
-            utils.wait(2000);
+            utils.isElementPresent('//input[@type = \'email\']');
             element(by.xpath('//p[@class = \'text-book\']/span')).isPresent().then((present) => {
                 if (present) {
                     resolve(element(by.xpath('//p[@class = \'text-book\']/span')));

@@ -1,24 +1,19 @@
 'use strict'
 
-module.exports = { 
-
-	data:{
-
+let data = {
 		prod: {
-			email: "you@email.com",
-			password: "*******"
+			destination: "Seattle, WA, USA",
+			city: "Seattle"
 		},
 
 		prod1: {
-			email: "you@email.com",
-			password: "*******"
+			destination: "Orlando, FL, USA",
+			city: "Orlando"
 		},
 
 		prod2: {
-			email: "you@email.com",
-			password: "*******"
+			
 		}
+	}
 
-	}	
-
-}
+module.exports = data;

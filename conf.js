@@ -19,8 +19,11 @@ var ScreenshotAndStackReporter = new HtmlScreenshotReporter({
 
 exports.config = {
   directConnect: true,
-  specs: specSuite.configure.smoke.specs,
-  
+  suites: [
+    specSuite.configure.smoke.specs,
+    specSuite.configure.regression.specs
+  ],
+
   beforeLaunch: function () {
     return new Promise(function (resolve) {
       ScreenshotAndStackReporter.beforeLaunch(resolve);
