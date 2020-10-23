@@ -45,6 +45,19 @@ class CitiesPage {
         });
     };
 
+    get ride_for_every_occasion () {
+        return new Promise((resolve, reject) => {
+            utils.isElementPresent('//h2[text() = \'A ride for every occasion\']');
+            element(by.xpath('//h2[text() = \'A ride for every occasion\']')).isPresent().then((present) => {
+                if (present) {
+                    resolve (true);
+                } else {
+                    reject (false);
+                }
+            });
+        });
+    };
+
     set_find_your_city(city_loc) {
     	let set_find_your_city = this.find_your_city;
         return set_find_your_city.then((_promise) => {

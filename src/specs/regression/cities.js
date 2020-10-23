@@ -2,6 +2,7 @@
 let url = require('../../../config/urls.js');
 let citiesPage = require('../../pages/cities_page.js')
 let data = require("../../../data/data.js");
+let utils = require('../../../lib/commonUtils.js');
 
 browser.ignoreSynchronization = true;
 
@@ -37,6 +38,22 @@ describe('Valid destination testing: ', function() {
 			return citiesPage.set_find_your_city(data.prod.destination_without_lyft_service);
 		}).then(() => {
 	    	return citiesPage.no_lyft_service();
+	    }).then((text) => {
+	    	return expect(text).toBe(true);
+	    	done();
+	    }).catch((err) => {
+	    	return Promise.reject (err);
+	    });
+	});
+
+	it('A ride for every occasion: ', function() {
+		browser.driver.manage().deleteAllCookies().then(() => {
+	    }).then(() => {
+	        return browser.driver.manage().window().maximize();
+	    }).then(() => {
+	    	return citiesPage.set_find_your_city(data.prod.destination);
+	    }).then(() => {
+	    	return citiesPage.ride_for_every_occasion;
 	    }).then((text) => {
 	    	return expect(text).toBe(true);
 	    	done();
