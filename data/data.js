@@ -3,7 +3,8 @@
 let data = {
 		prod: {
 			destination: "Seattle, WA, USA",
-			city: "Seattle"
+			city: "Seattle",
+			destination_without_lyft_service: "Kolkata, West Bengal, India"
 		},
 
 		prod1: {

@@ -33,6 +33,18 @@ class CitiesPage {
         });
     };
 
+    no_lyft_service () {
+        return new Promise((resolve, reject) => {
+            element(by.xpath('//h1[contains(text(), \'got your easy ride across town\')]')).isPresent().then((present) => {
+                if (present) {
+                    reject (false);
+                } else {
+                    resolve (true);
+                }
+            });
+        });
+    };
+
     set_find_your_city(city_loc) {
     	let set_find_your_city = this.find_your_city;
         return set_find_your_city.then((_promise) => {
@@ -40,13 +52,13 @@ class CitiesPage {
             set_find_your_city.sendKeys(city_loc);
             return new Promise((resolve, reject) => {
                 utils.isElementPresent('//ul[@role = \'listbox\']/li[1]//span');
-                utils.wait(1000);
+                utils.wait(3000);
                 element(by.xpath('//ul[@role = \'listbox\']/li[1]//span')).isPresent().then((present) => {
                     if (present) {
                         resolve (element(by.xpath('//ul[@role = \'listbox\']/li[1]//span')).click());
                     } else {
                             browser.getCurrentUrl().then((url) => {
-                            reject('Error retrieving set_find_your_city text. ' + url);
+                            //reject('Error retrieving set_find_your_city text. ' + url);
                         });
                     }
                 });

@@ -30,6 +30,21 @@ describe('Valid destination testing: ', function() {
 	    });
 	});
 
+	it('Verifying destination where lyft service is not allowed: ', function(){
+		browser.driver.manage().deleteAllCookies().then(() => {
+			return browser.driver.manage().window().maximize();
+		}).then(() => {
+			return citiesPage.set_find_your_city(data.prod.destination_without_lyft_service);
+		}).then(() => {
+	    	return citiesPage.no_lyft_service();
+	    }).then((text) => {
+	    	return expect(text).toBe(true);
+	    	done();
+	    }).catch((err) => {
+	    	return Promise.reject (err);
+	    });
+	}); 
+
 
 	afterEach((done) => {
 	    browser.get(url.url.getStarted.baseUrl).then(() => {
