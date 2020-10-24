@@ -58,6 +58,46 @@ class CitiesPage {
         });
     };
 
+    verify_ride_for_every_occasion_lux () {
+        return new Promise((resolve, reject) => {
+            utils.isElementExist('//x`span[text() = \'LUX\']').then((present) => {
+                if (present) {
+                    element(by.xpath('//span[text() = \'LUX\']')).click().then(() => {
+                        utils.isElementExist('//p[contains(text(), \'Lyft Lux is your high\')]').then((present) => {
+                            if (present) {
+                                resolve (true);
+                            } else {
+                                reject ('//p[contains(text(), \'Lyft Lux is your high\')] is not visible');
+                            }
+                        });
+                    });
+                } else {
+                    reject ('//span[text() = \'LUX\'] is not displayed');
+                }
+            });
+        });
+    };
+
+    verify_ride_for_every_occasion_lyft_xl () {
+        return new Promise((resolve, reject) => {
+            utils.isElementExist('//span[text() = \'LYFT XL\']').then((present) => {
+                if (present) {
+                    element(by.xpath('//span[text() = \'LYFT XL\']')).click().then(() => {
+                        utils.isElementExist('//p[contains(text(), \'Lyft XL is a supersized\')]').then((present) => {
+                            if (present) {
+                                resolve (true);
+                            } else {
+                                reject ('//p[contains(text(), \'Lyft XL is a supersized\')] is not visible');
+                            }
+                        });
+                    });
+                } else {
+                    reject ('//span[text() = \'LYFT XL\'] is not displayed');
+                }
+            });
+        });
+    };
+
     set_find_your_city(city_loc) {
     	let set_find_your_city = this.find_your_city;
         return set_find_your_city.then((_promise) => {

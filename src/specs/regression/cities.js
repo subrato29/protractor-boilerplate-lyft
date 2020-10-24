@@ -38,8 +38,8 @@ describe('Valid destination testing: ', function() {
 			return citiesPage.set_find_your_city(data.prod.destination_without_lyft_service);
 		}).then(() => {
 	    	return citiesPage.no_lyft_service();
-	    }).then((text) => {
-	    	return expect(text).toBe(true);
+	    }).then((bool) => {
+	    	return expect(bool).toBe(true);
 	    	done();
 	    }).catch((err) => {
 	    	return Promise.reject (err);
@@ -54,8 +54,16 @@ describe('Valid destination testing: ', function() {
 	    	return citiesPage.set_find_your_city(data.prod.destination);
 	    }).then(() => {
 	    	return citiesPage.ride_for_every_occasion;
-	    }).then((text) => {
-	    	return expect(text).toBe(true);
+	    }).then((bool) => {
+	    	return expect(bool).toBe(true);
+	    }).then(() => {
+	    	return citiesPage.verify_ride_for_every_occasion_lyft_xl();
+	    }).then((bool) => {
+	    	return expect(bool).toBe(true);
+	    }).then(() => {
+	    	return citiesPage.verify_ride_for_every_occasion_lux();
+	    }).then((bool) => {
+	    	return expect(bool).toBe(true);
 	    	done();
 	    }).catch((err) => {
 	    	return Promise.reject (err);
