@@ -7,7 +7,7 @@ Make sure node is installed.
 
 git clone 'repo-url'
 
-cd protractor-boilerplate
+cd protractor-boilerplate-lyft
 
 npm install
 
@@ -18,4 +18,4 @@ Running the tests:
 ```
 npm run test
 
-For running locally, start webdriver by issuing command "webdriver-manager start" in daemon mode.
+For running locally, start webdriver by issuing command "npm run start" in daemon mode.
