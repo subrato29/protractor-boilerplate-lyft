@@ -18,6 +18,9 @@ module.exports = {
 		},
 		getStarted: {
 			baseUrl: "https://www.lyft.com/business/signup?utm_source=website&utm_medium=direct"
+		},
+		getRide: {
+			baseUrl: "https://ride.lyft.com/?entrypoint=lyftcom"
 		}
 	}	
 

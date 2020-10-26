@@ -6,7 +6,7 @@ let utils = require('../../../lib/commonUtils.js');
 
 browser.ignoreSynchronization = true;
 
-describe('Valid destination testing: ', function() {
+describe('Cities page testing: ', function() {
 
 	beforeEach((done) => {
 	    browser.waitForAngularEnabled(false);
@@ -31,20 +31,18 @@ describe('Valid destination testing: ', function() {
 	    });
 	});
 
-	it('Verifying destination where lyft service is not allowed: ', function(){
-		browser.driver.manage().deleteAllCookies().then(() => {
-			return browser.driver.manage().window().maximize();
-		}).then(() => {
-			return citiesPage.set_find_your_city(data.prod.destination_without_lyft_service);
-		}).then(() => {
-	    	return citiesPage.no_lyft_service();
-	    }).then((bool) => {
-	    	return expect(bool).toBe(true);
-	    	done();
-	    }).catch((err) => {
-	    	return Promise.reject (err);
-	    });
-	});
+	// it('Verifying destination where lyft service is not allowed: ', function() {
+	// 	browser.driver.manage().deleteAllCookies().then(() => {
+	// 		return browser.driver.manage().window().maximize();
+	// 	}).then(() => {
+	// 		return citiesPage.set_find_your_city(data.prod.destination_without_lyft_service);
+	// 	}).then(() => {
+	//     	return citiesPage.no_lyft_service();
+	//     	done();
+	//     }).catch((err) => {
+	//     	return Promise.reject (err);
+	//     });
+	// });
 
 	it('A ride for every occasion: ', function() {
 		browser.driver.manage().deleteAllCookies().then(() => {
@@ -68,6 +66,46 @@ describe('Valid destination testing: ', function() {
 	    }).catch((err) => {
 	    	return Promise.reject (err);
 	    });
+	});
+
+	it('Validate fare estimate: ', function() {
+		browser.driver.manage().deleteAllCookies().then(() => {
+		}).then(() => {
+			return browser.driver.manage().window().maximize();
+		}).then(() => {
+			return citiesPage.set_find_your_city(data.prod.destination);
+		}).then(() => {
+			return citiesPage.set_pick_up_loc(data.prod.pick_up);
+		}).then(() => {
+			return citiesPage.set_drop_off_loc(data.prod.drop_off);
+		}).then(() => {
+			return citiesPage.click_get_estimate();
+		}).then(() => {
+			return citiesPage.get_ride_types();
+			done();
+		}).catch((err) => {
+			return Promise.reject(err);
+		})
+	}); 
+
+	it('Currently no rides for this route: ', function() {
+		browser.driver.manage().deleteAllCookies().then(() => {
+		}).then(() => {
+			return browser.driver.manage().window().maximize();
+		}).then(() => {
+			return citiesPage.set_find_your_city(data.prod.destination);
+		}).then(() => {
+			return citiesPage.set_pick_up_loc("401 West Seminole Boulevard, Sanford, FL, USA");
+		}).then(() => {
+			return citiesPage.set_drop_off_loc("151 Wooster St, New York, NY 10012, USA");
+		}).then(() => {
+			return citiesPage.click_get_estimate();
+		}).then(() => {
+			return citiesPage.currently_no_rides;
+			done();
+		}).catch((err) => {
+			return Promise.reject(err);
+		})
 	}); 
 
 

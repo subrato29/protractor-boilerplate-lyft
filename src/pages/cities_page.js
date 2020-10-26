@@ -33,15 +33,22 @@ class CitiesPage {
         });
     };
 
-    no_lyft_service () {
+    get get_estimate() {
+        utils.elementToBeClickable('//span[text() = \'GET ESTIMATE\']');
         return new Promise((resolve, reject) => {
-            element(by.xpath('//h1[contains(text(), \'got your easy ride across town\')]')).isPresent().then((present) => {
+            element(by.xpath('//span[text() = \'GET ESTIMATE\']')).isPresent().then((present) => {
                 if (present) {
-                    reject (false);
+                    resolve (element(by.xpath('//span[text() = \'GET ESTIMATE\']')));
                 } else {
-                    resolve (true);
+                    reject ('//span[text() = \'GET ESTIMATE\'] is not present');
                 }
             });
+        });
+    }
+
+    no_lyft_service () {
+        element.all(by.xpath('//h1[contains(text(), \'got your easy ride across town\')]')).then((list) => {
+            expect(list.length).toBe(0);
         });
     };
 
@@ -60,7 +67,7 @@ class CitiesPage {
 
     verify_ride_for_every_occasion_lux () {
         return new Promise((resolve, reject) => {
-            utils.isElementExist('//x`span[text() = \'LUX\']').then((present) => {
+            utils.isElementExist('//span[text() = \'LUX\']').then((present) => {
                 if (present) {
                     element(by.xpath('//span[text() = \'LUX\']')).click().then(() => {
                         utils.isElementExist('//p[contains(text(), \'Lyft Lux is your high\')]').then((present) => {
@@ -80,6 +87,7 @@ class CitiesPage {
 
     verify_ride_for_every_occasion_lyft_xl () {
         return new Promise((resolve, reject) => {
+            utils.elementToBeClickable('//span[text() = \'LYFT XL\']');
             utils.isElementExist('//span[text() = \'LYFT XL\']').then((present) => {
                 if (present) {
                     element(by.xpath('//span[text() = \'LYFT XL\']')).click().then(() => {
@@ -98,6 +106,21 @@ class CitiesPage {
         });
     };
 
+    get currently_no_rides () {
+        return new Promise((resolve, reject) => {
+            utils.waitForElement('//span[contains(text(), \'currently no rides\')]');
+            element(by.xpath('//span[contains(text(), \'currently no rides\')]')).isPresent().then((present) => {
+                if (present) {
+                    resolve(element(by.xpath('//span[contains(text(), \'currently no rides\')]')));
+                } else {
+                    browser.getCurrentUrl().then((url) => {
+                        reject('Error retrieving currently_no_rides text. ' + url);
+                    });
+                }
+            });
+        });
+    };
+
     set_find_your_city(city_loc) {
     	let set_find_your_city = this.find_your_city;
         return set_find_your_city.then((_promise) => {
@@ -105,7 +128,7 @@ class CitiesPage {
             set_find_your_city.sendKeys(city_loc);
             return new Promise((resolve, reject) => {
                 utils.isElementPresent('//ul[@role = \'listbox\']/li[1]//span');
-                utils.wait(3000);
+                utils.wait(2000);
                 element(by.xpath('//ul[@role = \'listbox\']/li[1]//span')).isPresent().then((present) => {
                     if (present) {
                         resolve (element(by.xpath('//ul[@role = \'listbox\']/li[1]//span')).click());
@@ -119,7 +142,7 @@ class CitiesPage {
         }).catch((err) => {
             Promise.reject(err);
         });
-    }
+    };
 
     verify_got_your_easy_ride() {
         let verify_got_your_easy_ride = this.got_your_easy_ride;
@@ -129,7 +152,60 @@ class CitiesPage {
         }).catch((err) => {
             return Promise.reject(err);
         })
-    }
+    };
+
+    set_pick_up_loc(location) {
+        return new Promise((resolve, reject) => {
+            utils.isElementExist('//span[contains(text(), \'Enter pick-up location\')]/../..//input').then((present) => {
+                if(present) {
+                    element(by.xpath('//span[contains(text(), \'Enter pick-up location\')]/../..//input')).sendKeys(location).then(() => {
+                        utils.elementToBeClickable('//ul[@role = \'listbox\']/li[1]');
+                        resolve (element(by.xpath('//ul[@role = \'listbox\']/li[1]')).click());
+                    });
+                } else {
+                    reject('set_pick_up_loc function is failed');
+                }
+            });
+        });
+    };
+
+    set_drop_off_loc(location) {
+        return new Promise((resolve, reject) => {
+            utils.isElementExist('//span[contains(text(), \'Enter drop-off location\')]/../..//input').then((present) => {
+                if(present) {
+                    element(by.xpath('//span[contains(text(), \'Enter drop-off location\')]/../..//input')).sendKeys(location).then(() => {
+                        utils.elementToBeClickable('//ul[@role = \'listbox\']/li[1]');
+                        resolve (element(by.xpath('//ul[@role = \'listbox\']/li[1]')).click());
+                    });
+                } else {
+                    reject('set_drop_off_loc function is failed');
+                }
+            });
+        });
+    };
+
+    click_get_estimate() {
+        let click_get_estimate = this.get_estimate;
+        return click_get_estimate.then((_promise) => {
+            click_get_estimate = _promise;
+            return click_get_estimate.click();
+        }).catch((err) => {
+            return Promise.reject('error in click_get_estimate function');
+        })
+    };
+
+    get_ride_types() {
+        utils.waitForElement('//span[text() = \'Lyft\']');
+        element.all(by.xpath('//span[text() = \'Lyft\']/../../..//tr/td[1]')).getText().then((list) => {
+            expect(list.length).toEqual(5);
+            expect(list.includes('Lyft')).toBe(true);
+            expect(list.includes('XL')).toBe(true);
+            expect(list.includes('Lux')).toBe(true);
+            expect(list.includes('Lux Black')).toBe(true);
+            expect(list.includes('Lux Black XL')).toBe(true);
+        });
+    };
+
 }
 
 module.exports = new CitiesPage();
