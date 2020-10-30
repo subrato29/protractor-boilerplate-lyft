@@ -5,8 +5,7 @@ module.exports = {
         smoke: {
             specs: [
                 'src/specs/smoke/login.js',
-                'src/specs/smoke/cities.js',
-                'src/specs/smoke/help.js'
+                'src/specs/smoke/cities.js'
             ]
         },
         regression: {
