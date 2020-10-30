@@ -21,6 +21,9 @@ module.exports = {
 		},
 		getRide: {
 			baseUrl: "https://ride.lyft.com/?entrypoint=lyftcom"
+		},
+		howCanWeHelpYou: {
+			baseUrl: 'https://help.lyft.com/hc/en-us'
 		}
 	}	
 

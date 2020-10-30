@@ -33,6 +33,7 @@ describe('Get a ride destination testing: ', function() {
 		}).then(() => {
 			return getRide.verify_trip_details_drop_off();
 		}).then((text) => {
+			console.log ('8888: ' + text);
 			return expect(data.prod.drop_off).toContain(text);
 		}).catch((err) => {
 			return Promise.reject(err);

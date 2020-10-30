@@ -106,8 +106,23 @@ describe('Cities page testing: ', function() {
 		}).catch((err) => {
 			return Promise.reject(err);
 		})
-	}); 
+	});
 
+	it ('Verifying canada is available in btn_country: ', function() {
+		browser.driver.manage().deleteAllCookies().then(() => {
+		}).then(() => {
+			return browser.driver.manage().window().maximize();
+		}).then(() => {
+			return citiesPage.click_btnCountry();
+		}).then (() => {
+			return citiesPage.click_canada();
+		}).then (() => {
+			return citiesPage.british_columbia;
+			done();
+		}).catch((err) => {
+			return Promise.reject(err);
+		});		
+	});
 
 	afterEach((done) => {
 	    browser.get(url.url.getStarted.baseUrl).then(() => {

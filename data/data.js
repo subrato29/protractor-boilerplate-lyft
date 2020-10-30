@@ -9,9 +9,8 @@ let data = {
 			drop_off: '901 International Parkway, Lake Mary, FL, USA'
 		},
 
-		prod1: {
-			destination: "Orlando, FL, USA",
-			city: "Orlando"
+		how_can_we_help: {
+			riding_with_lyft: "Fees and Charges,Request a Ride,Choose a Ride Type,Ride Features,After Rides,Ride Fare and Discounts" 
 		},
 
 		prod2: {

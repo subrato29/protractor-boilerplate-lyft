@@ -65,6 +65,45 @@ class CitiesPage {
         });
     };
 
+    get btnCountry () {
+        return new Promise((resolve, reject) => {
+            let locator = '//button[text() = \'United States\']';
+            element(by.xpath(locator)).isPresent().then((present) => {
+                if (present) {
+                    resolve (element(by.xpath(locator))); 
+                } else {
+                    reject (locator + ' is not displayed');
+                }
+            });
+        });
+    };
+
+    get canada () {
+        return new Promise((resolve, reject) => {
+            let locator = '//li[text() = \'Canada\']';
+            element(by.xpath(locator)).isPresent().then((present) => {
+                if (present) {
+                    resolve (element(by.xpath(locator)));
+                } else {
+                    reject (locator + ' is not displayed');
+                }
+            });
+        });
+    };
+
+    get british_columbia () {
+        return new Promise((resolve, reject) => {
+            let locator = '//h2[text() = \'BRITISH COLUMBIA\']';
+            element(by.xpath(locator)).isPresent().then((present) => {
+                if (present) {
+                    resolve (element(by.xpath(locator)));
+                } else {
+                    reject (locator + ' is not displayed');
+                }
+            });
+        });
+    };
+
     verify_ride_for_every_occasion_lux () {
         return new Promise((resolve, reject) => {
             utils.isElementExist('//span[text() = \'LUX\']').then((present) => {
@@ -203,6 +242,26 @@ class CitiesPage {
             expect(list.includes('Lux')).toBe(true);
             expect(list.includes('Lux Black')).toBe(true);
             expect(list.includes('Lux Black XL')).toBe(true);
+        });
+    };
+
+    click_btnCountry () {
+        let click_btnCountry = this.btnCountry;
+        return click_btnCountry.then((_promise) => {
+            click_btnCountry = _promise;
+            return click_btnCountry.click();
+        }).catch((err) => {
+            return Promise.reject('error is click_btnCountry function');
+        });
+    };
+
+    click_canada () {
+        let click_canada = this.canada;
+        return click_canada.then ((_promise) => {
+            click_canada = _promise;
+            return click_canada.click();
+        }).catch((err) => {
+            return Promise.reject('error is click_canada function');
         });
     };
 
