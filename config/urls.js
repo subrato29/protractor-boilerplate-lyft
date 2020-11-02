@@ -24,6 +24,12 @@ module.exports = {
 		},
 		howCanWeHelpYou: {
 			baseUrl: 'https://help.lyft.com/hc/en-us'
+		},
+		pay: {
+			baseUrl: 'https://www.lyft.com/driver/pay'
+		},
+		rider: {
+			baseUrl: 'https://www.lyft.com/rider'
 		}
 	}	
 
