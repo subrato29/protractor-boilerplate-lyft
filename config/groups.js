@@ -13,7 +13,8 @@ module.exports = {
                 'src/specs/regression/cities.js',
                 'src/specs/regression/get_ride.js',
                 'src/specs/regression/how_can_we_help.js',
-                'src/specs/regression/pay.js'
+                'src/specs/regression/pay.js',
+                'src/specs/regression/rider.js'
             ]
         }
     }
